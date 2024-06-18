@@ -1,7 +1,11 @@
 #!/bin/bash
+set -e -o pipefail
+cd "$(dirname "$0")"
+
+source ../context.conf
 
 # Load local cluster
-kubectl config use-context docker-desktop
+kubectl config use-context $CONTEXT
 
 # Delete Openbalena PVCs in background
 pvcs=$(kubectl get pvc -n openbalena | grep openbalena | cut -f1 -d ' ')
